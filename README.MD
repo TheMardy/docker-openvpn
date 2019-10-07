@@ -24,7 +24,7 @@ Original Credits: [kylemanna/docker-openvpn](https://github.com/kylemanna/docker
 
 Please [raise an issue 💬](https://github.com/TheMardy/docker-openvpn/issues) if you are able to test an untested platform 🙏
 
-# Quick Start with docker-compose
+## Quick Start with docker-compose
 
 * Add a new service in docker-compose.yml
 
@@ -94,15 +94,7 @@ docker-compose run --rm openvpn ovpn_revokeclient $CLIENTNAME
 docker-compose run --rm openvpn ovpn_revokeclient $CLIENTNAME remove
 ```
 
-## Debugging Tips
-
-* Create an environment variable with the name DEBUG and value of 1 to enable debug output (using "docker -e").
-
-```bash
-docker-compose run -e DEBUG=1 -p 1194:1194/udp openvpn
-```
-
-# Quick Start with docker run
+## Quick Start with docker run
 
 * Pick a name for the `$OVPN_DATA` data volume container. It's recommended to
   use the `ovpn-data-` prefix to operate seamlessly with the reference systemd
