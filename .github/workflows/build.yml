@@ -17,10 +17,9 @@ jobs:
         run: |
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             TAG=${GITHUB_REF#refs/tags/}
-            echo ::set-output name=tag_name::${TAG}
             echo ::set-output name=version::${TAG%-*}
           else
-            echo ::set-output name=version::snapshot
+            echo ::set-output name=version::unstable
           fi
           echo ::set-output name=build_date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
           echo ::set-output name=docker_platforms::linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/ppc64le,linux/s390x
@@ -49,13 +48,24 @@ jobs:
             --file Dockerfile .
       -
         name: Docker Login
-        if: success() && startsWith(github.ref, 'refs/tags/')
+        if: success()
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           echo "${DOCKER_PASSWORD}" | docker login --username "${{ steps.prepare.outputs.docker_username }}" --password-stdin
       -
-        name: Docker Buildx (push)
+       name: Docker Buildx [Unstable] (push)
+       if: success()
+       run: |
+          docker buildx build --platform ${{ steps.prepare.outputs.docker_platforms }} \
+            --output "type=image,push=true" \
+            --label "org.label-schema.build-date=${{ steps.prepare.outputs.build_date }}" \
+            --label "org.label-schema.version=${{ steps.prepare.outputs.version }}" \
+            --label "org.label-schema.vcs-ref=${GITHUB_SHA::8}" \
+            --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}" \
+            --file Dockerfile .
+      -
+        name: Docker Buildx [Release] (push)
         if: success() && startsWith(github.ref, 'refs/tags/')
         run: |
           docker buildx build --platform ${{ steps.prepare.outputs.docker_platforms }} \
@@ -68,11 +78,11 @@ jobs:
             --file Dockerfile .
       -
         name: Docker Check Manifest
-        if: always() && startsWith(github.ref, 'refs/tags/')
+        if: always()
         run: |
           docker run --rm mplatform/mquery ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}
       -
         name: Clear
-        if: always() && startsWith(github.ref, 'refs/tags/')
+        if: always()
         run: |
           rm -f ${HOME}/.docker/config.json
