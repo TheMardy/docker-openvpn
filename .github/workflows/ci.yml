@@ -1,4 +1,4 @@
-name: build
+name: CI
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
     tags: '*'
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
     steps:
       -
@@ -48,14 +48,14 @@ jobs:
             --file Dockerfile .
       -
         name: Docker Login
-        if: success()
+        if: success() && github.event_name != 'pull_request'
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           echo "${DOCKER_PASSWORD}" | docker login --username "${{ steps.prepare.outputs.docker_username }}" --password-stdin
       -
        name: Docker Buildx [Unstable] (push)
-       if: success()
+       if: success() && github.event_name != 'pull_request'
        run: |
           docker buildx build --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --output "type=image,push=true" \
@@ -78,11 +78,11 @@ jobs:
             --file Dockerfile .
       -
         name: Docker Check Manifest
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         run: |
           docker run --rm mplatform/mquery ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}
       -
         name: Clear
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         run: |
           rm -f ${HOME}/.docker/config.json
