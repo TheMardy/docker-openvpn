@@ -1,10 +1,10 @@
 # Multiplatform OpenVPN for Docker
 
-[![Version](https://img.shields.io/github/v/tag/themardy/docker-openvpn?label=version&style=flat-square)](https://github.com/TheMardy/docker-openvpn/releases)
-![Travis (.org)](https://img.shields.io/travis/themardy/docker-openvpn)
+[![Version](https://badgen.net/github/release/themardy/docker-openvpn)](https://github.com/TheMardy/docker-openvpn/releases)
+[![Travis (.org)](https://badgen.net/travis/themardy/docker-openvpn)](https://travis-ci.org/github/TheMardy/docker-openvpn)
 [![Actions Status](https://github.com/themardy/docker-openvpn/workflows/build/badge.svg)](https://github.com/themardy/docker-openvpn/actions)
-[![Docker Stars](https://img.shields.io/docker/stars/themardy/openvpn.svg)](https://hub.docker.com/r/themardy/openvpn/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/themardy/openvpn.svg)](https://hub.docker.com/r/themardy/openvpn/)
+[![Docker Stars](https://badgen.net/docker/stars/themardy/openvpn)](https://hub.docker.com/r/themardy/openvpn/)
+[![Docker Pulls](https://badgen.net/docker/pulls/themardy/openvpn)](https://hub.docker.com/r/themardy/openvpn/)
 [![ImageLayers](https://images.microbadger.com/badges/image/themardy/openvpn.svg)](https://microbadger.com/#/images/themardy/openvpn)
 
 ## About
@@ -18,7 +18,7 @@ Original Credits: [kylemanna/docker-openvpn](https://github.com/kylemanna/docker
 | linux/amd64  | ✓  |
 | linux/arm/v6  | -  |
 | linux/arm/v7  | ✓  |
-| linux/arm64  | -  |
+| linux/arm64  | ✓  |
 | linux/386  | -  |
 | linux/ppc64le  | -  |
 

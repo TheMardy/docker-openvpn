@@ -2,7 +2,7 @@
 # Docker + OpenVPN systemd service
 #
 # Author: Kyle Manna <kyle@kylemanna.com>
-# Source: https://github.com/themardy/docker-openvpn
+# Source: https://github.com/kylemanna/docker-openvpn
 #
 # This service aims to make the update and invocation of the docker-openvpn
 # container seemless.  It automatically downloads the latest docker-openvpn
