@@ -24,6 +24,13 @@ Original Credits: [kylemanna/docker-openvpn](https://github.com/kylemanna/docker
 
 Please [raise an issue 💬](https://github.com/TheMardy/docker-openvpn/issues) if you are able to test an untested platform 🙏
 
+### Differences from [kylemanna/docker-openvpn](https://github.com/kylemanna/docker-openvpn)
+- Multi-platform images
+- Default DNS changed from Google to Cloudflare
+- [Wiki pages](https://github.com/TheMardy/docker-openvpn/wiki) for documentation
+
+
+
 ## Quick Start with docker-compose
 
 * Add a new service in docker-compose.yml
